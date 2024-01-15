@@ -4,7 +4,7 @@ wikidata_prefix = 'https://www.wikidata.org/wiki/'
 
 
 def main():
-    df = pd.read_csv('./knowledge_graph/wikidata5m_transductive_train.tsv', sep='\t', names=['S', 'P', 'O'])
+    df = pd.read_csv('./knowledge_graph/wikidata5m_transductive_train.txt', sep='\t', names=['S', 'P', 'O'])
 
     # Transform triples to Turtle format in the dataframe
     turtle_df = df.apply(row_to_turtle, axis=1)
