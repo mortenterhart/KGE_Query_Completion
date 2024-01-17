@@ -26,7 +26,7 @@ def main():
         relation_to_id=pretrained_model.graph.relation2id
     )
 
-    save_dir = Path(f'embeddings/{model_name}')
+    save_dir = Path(f'../embeddings/{model_name}')
     save_dir.mkdir(exist_ok=True)
 
     triples_factory_path = save_dir / 'training_factory'
