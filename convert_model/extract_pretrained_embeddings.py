@@ -20,7 +20,7 @@ def main():
 
     print(f'[X] Loading {model_name} entity and relation mappings into triples factory')
     train_factory = TriplesFactory.from_path(
-        path='dataset/wikidata5m/wikidata5m_transductive_train.txt',
+        path='../dataset/wikidata5m/wikidata5m_transductive_train.txt',
         entity_to_id=pretrained_model.graph.entity2id,
         relation_to_id=pretrained_model.graph.relation2id
     )
