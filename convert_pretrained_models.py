@@ -35,6 +35,9 @@ def main():
         entity_embeddings = torch.from_numpy(pretrained_model.solver.entity_embeddings)
         relation_embeddings = torch.from_numpy(pretrained_model.solver.relation_embeddings)
 
+        # Free memory for creating new model instance
+        del pretrained_model
+
         model = ModelClass(
             triples_factory=train_factory,
             embedding_dim=512,
