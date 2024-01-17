@@ -1,5 +1,6 @@
 import pickle
 from pathlib import Path
+import gc
 
 import torch
 from pykeen.models import TransE, ComplEx, DistMult, SimplE
@@ -37,6 +38,7 @@ def main():
 
         # Free memory for creating new model instance
         del pretrained_model
+        gc.collect()
 
         model = ModelClass(
             triples_factory=train_factory,
