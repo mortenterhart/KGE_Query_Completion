@@ -76,10 +76,10 @@ def human_format(num):
 
 def get_pretrained_model_paths():
     return {
-        'complex': {
-            'path': 'pretrained_embeddings/complex_wikidata5m.pkl',
-            'class': ComplEx
-        },
+        #'complex': {
+        #    'path': 'pretrained_embeddings/complex_wikidata5m.pkl',
+        #    'class': ComplEx
+        #},
         'distmult': {
             'path': 'pretrained_embeddings/distmult_wikidata5m.pkl',
             'class': DistMult
