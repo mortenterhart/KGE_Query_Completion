@@ -1,6 +1,7 @@
 import pickle
 from pathlib import Path
 import gc
+import sys
 
 import torch
 from pykeen.models import TransE, ComplEx, DistMult, SimplE
@@ -20,6 +21,7 @@ def main():
         with open(model_path, 'rb') as f:
             pretrained_model = pickle.load(f)
 
+        print(f'Size of pretrained_model: {human_format(sys.getsizeof(pretrained_model))}')
         print('Members of pretrained_model.graph:', dir(pretrained_model.graph))
         print('Members pretrained_model.solver:', dir(pretrained_model.solver))
         print('Type of pretrained_model.solver.entity_embeddings:', type(pretrained_model.solver.entity_embeddings))
@@ -32,9 +34,16 @@ def main():
             relation_to_id=pretrained_model.graph.relation2id
         )
 
+        # Remove entity and relation mappings to free memory
+        del pretrained_model.graph
+        gc.collect()
+
         print(f'[X] Creating PyKEEN model from trained {model_name} embeddings')
         entity_embeddings = torch.from_numpy(pretrained_model.solver.entity_embeddings)
         relation_embeddings = torch.from_numpy(pretrained_model.solver.relation_embeddings)
+
+        print(f'Size of entity_embeddings: {human_format(sys.getsizeof(entity_embeddings))}')
+        print(f'Size of relation_embeddings: {human_format(sys.getsizeof(relation_embeddings))}')
 
         # Free memory for creating new model instance
         del pretrained_model
@@ -54,6 +63,15 @@ def main():
         torch.save(model.state_dict(), save_dir.joinpath('trained_model_state_dict.pt'),
                    pickle_protocol=pickle.HIGHEST_PROTOCOL)
         train_factory.to_path_binary(save_dir.joinpath('training_factory'))
+
+
+def human_format(num):
+    num = float('{:.3g}'.format(num))
+    magnitude = 0
+    while abs(num) >= 1000:
+        magnitude += 1
+        num /= 1000.0
+    return '{}{}'.format('{:f}'.format(num).rstrip('0').rstrip('.'), ['', 'K', 'M', 'B', 'T'][magnitude])
 
 
 def get_pretrained_model_paths():
