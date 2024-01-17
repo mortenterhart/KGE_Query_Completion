@@ -20,9 +20,9 @@ def main():
             pretrained_model = pickle.load(f)
 
         print('Members of pretrained_model.graph:', dir(pretrained_model.graph))
-        print('Members pretrained_model.solver;', dir(pretrained_model.solver))
-        print('Type of pretrained_model.solver.entity_embeddings;', type(pretrained_model.solver.entity_embeddings))
-        print('Type of pretrained_model.solver.relation_embeddings;', type(pretrained_model.solver.relation_embeddings))
+        print('Members pretrained_model.solver:', dir(pretrained_model.solver))
+        print('Type of pretrained_model.solver.entity_embeddings:', type(pretrained_model.solver.entity_embeddings))
+        print('Type of pretrained_model.solver.relation_embeddings:', type(pretrained_model.solver.relation_embeddings))
 
         print(f'[X] Loading {model_name} entity and relation mappings into triples factory')
         train_factory = TriplesFactory.from_path(
