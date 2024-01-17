@@ -13,7 +13,6 @@ def main():
 
     model_path = f'../pretrained_embeddings/{model_name}_wikidata5m.pkl'
 
-    print(f'\n==== Converting pretrained {model_name} model ====\n')
     print(f'[X] Loading pretrained model {model_name} from {model_path}')
 
     with open(model_path, 'rb') as f:
