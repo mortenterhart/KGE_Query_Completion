@@ -4,6 +4,9 @@ from pykeen.predict import predict_triples
 from pykeen.models import DistMult
 from pykeen.triples import TriplesFactory
 
+# Get torch device
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 
 def main():
     model_name = 'distmult'
@@ -16,7 +19,7 @@ def main():
         embedding_dim=512
     )
     model.load_state_dict(torch.load(f'embeddings/{model_name}/trained_model_state_dict.pt'))
-    model.eval()
+    model.to(device).eval()
 
     print(f'[X] Loading Wikidata5M datasets')
     wikidata5m_train = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_train.txt', sep='\t', names=['S', 'P', 'O'])
@@ -26,7 +29,10 @@ def main():
 
     print('[X] Start computing predictions for all triples')
 
-    pack = predict_triples(model=model, triples=train_factory.map_triples(wikidata5m_all))
+    mapped_triples = train_factory.map_triples(wikidata5m_all)
+    mapped_triples.to(device)
+
+    pack = predict_triples(model=model, triples=mapped_triples)
     scores_df = pack.process(factory=train_factory).df
 
     print(f'[X] Saving predicted scores')
