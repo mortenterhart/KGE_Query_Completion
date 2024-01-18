@@ -16,9 +16,9 @@ def main():
     train_factory = TriplesFactory.from_path_binary(f'embeddings/{model_name}/training_factory')
 
     print(f'[X] Loading Wikidata5M datasets')
-    wikidata5m_train = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_train.txt')
-    wikidata5m_valid = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_valid.txt')
-    wikidata5m_test = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_test.txt')
+    wikidata5m_train = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_train.txt', sep='\t', names=['S', 'P', 'O'])
+    wikidata5m_valid = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_valid.txt', sep='\t', names=['S', 'P', 'O'])
+    wikidata5m_test = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_test.txt', sep='\t', names=['S', 'P', 'O'])
     wikidata5m_all = pd.concat([wikidata5m_train, wikidata5m_valid, wikidata5m_test]).values
 
     print('[X] Start computing predictions for all triples')
