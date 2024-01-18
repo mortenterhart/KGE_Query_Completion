@@ -1,7 +1,7 @@
 import pandas as pd
 import torch
 from pykeen.predict import predict_triples
-from pykeen.models import DistMult
+from pykeen.models import DistMult, SimplE, TransE
 from pykeen.triples import TriplesFactory
 
 # Get torch device
@@ -9,12 +9,15 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 def main():
-    model_name = 'distmult'
+    model_name = 'transe'
+
+    # Empty CUDA cache
+    torch.cuda.empty_cache()
 
     print(f'[X] Loading {model_name} model')
     train_factory = TriplesFactory.from_path_binary(f'embeddings/{model_name}/training_factory')
 
-    model = DistMult(
+    model = TransE(
         triples_factory=train_factory,
         embedding_dim=512
     )
