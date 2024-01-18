@@ -9,6 +9,9 @@ from pykeen.triples import TriplesFactory
 
 from extract_pretrained_embeddings import ModelName
 
+# Get torch device
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 
 def main():
     model_name: ModelName = 'distmult'
@@ -45,11 +48,11 @@ def evaluate_model_per_predicate(trained_model, model_name, train_factory, wikid
     evaluator = RankBasedEvaluator(clear_on_finalize=False)
     evaluator.evaluate(
         model=trained_model,
-        mapped_triples=test_factory.mapped_triples,
+        mapped_triples=test_factory.mapped_triples.to(device),
         batch_size=4096,
         additional_filter_triples=[
-            dataset.training.mapped_triples,
-            dataset.validation.mapped_triples
+            dataset.training.mapped_triples.to(device),
+            dataset.validation.mapped_triples.to(device)
         ]
     )
 
