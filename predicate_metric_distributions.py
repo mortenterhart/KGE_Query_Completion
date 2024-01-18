@@ -9,6 +9,8 @@ def main():
 
     metric_names = np.sort(predicate_metrics['Metric'].unique())
 
+    print(f'[X] Plotting {len(metric_names)} different metric distributions')
+
     for metric in metric_names:
         complex_metrics = get_predicate_metric_distribution(predicate_metrics, metric, 'ComplEx', 'both', 'realistic')
         distmult_metrics = get_predicate_metric_distribution(predicate_metrics, metric, 'DistMult', 'both', 'realistic')
