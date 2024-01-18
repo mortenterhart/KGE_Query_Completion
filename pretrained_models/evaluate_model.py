@@ -46,6 +46,7 @@ def evaluate_model_per_predicate(trained_model, model_name, train_factory, wikid
     evaluator.evaluate(
         model=trained_model,
         mapped_triples=test_factory.mapped_triples,
+        batch_size=4096,
         additional_filter_triples=[
             dataset.training.mapped_triples,
             dataset.validation.mapped_triples
