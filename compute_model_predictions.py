@@ -26,7 +26,7 @@ def main():
 
     print('[X] Start computing predictions for all triples')
 
-    pack = predict_triples(model=model, triples=wikidata5m_all)
+    pack = predict_triples(model=model, triples=train_factory.map_triples(wikidata5m_all))
     scores_df = pack.process(factory=train_factory).df
 
     print(f'[X] Saving predicted scores')
