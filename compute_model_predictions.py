@@ -11,7 +11,10 @@ def main():
     print(f'[X] Loading {model_name} model')
     train_factory = TriplesFactory.from_path_binary(f'embeddings/{model_name}/training_factory')
 
-    model = DistMult(triples_factory=train_factory)
+    model = DistMult(
+        triples_factory=train_factory,
+        embedding_dim=512
+    )
     model.load_state_dict(torch.load(f'embeddings/{model_name}/trained_model_state_dict.pt'))
     model.eval()
 
