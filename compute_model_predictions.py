@@ -9,11 +9,11 @@ def main():
     model_name = 'distmult'
 
     print(f'[X] Loading {model_name} model')
-    model = DistMult()
+    train_factory = TriplesFactory.from_path_binary(f'embeddings/{model_name}/training_factory')
+
+    model = DistMult(triples_factory=train_factory)
     model.load_state_dict(torch.load(f'embeddings/{model_name}/trained_model_state_dict.pt'))
     model.eval()
-
-    train_factory = TriplesFactory.from_path_binary(f'embeddings/{model_name}/training_factory')
 
     print(f'[X] Loading Wikidata5M datasets')
     wikidata5m_train = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_train.txt', sep='\t', names=['S', 'P', 'O'])
