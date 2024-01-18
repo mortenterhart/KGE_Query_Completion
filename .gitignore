@@ -169,8 +169,7 @@ dataset/documents
 dataset/knowledge_graph
 
 # Trained embeddings and mappings
-embeddings/*/trained_model.pkl
-embeddings/*/training_triples/
+embeddings/
 pretrained_embeddings/
 
 # JetBrains files
