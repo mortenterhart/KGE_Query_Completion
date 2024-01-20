@@ -12,10 +12,10 @@ def main():
     print(f'[X] Plotting {len(metric_names)} different metric distributions')
 
     for metric in metric_names:
-        complex_metrics = get_predicate_metric_distribution(predicate_metrics, metric, 'ComplEx', 'both', 'realistic')
-        distmult_metrics = get_predicate_metric_distribution(predicate_metrics, metric, 'DistMult', 'both', 'realistic')
-        simple_metrics = get_predicate_metric_distribution(predicate_metrics, metric, 'SimplE', 'both', 'realistic')
-        transe_metrics = get_predicate_metric_distribution(predicate_metrics, metric, 'TransE', 'both', 'realistic')
+        complex_metrics = get_predicate_metric_distribution(predicate_metrics, metric, 'complex', 'both', 'realistic')
+        distmult_metrics = get_predicate_metric_distribution(predicate_metrics, metric, 'distmult', 'both', 'realistic')
+        simple_metrics = get_predicate_metric_distribution(predicate_metrics, metric, 'simple', 'both', 'realistic')
+        transe_metrics = get_predicate_metric_distribution(predicate_metrics, metric, 'transe', 'both', 'realistic')
 
         # plot_predicate_metric_distribution(metric, complex_metrics, distmult_metrics, simple_metrics, transe_metrics)
         plot_joint_metric_distributions(metric, complex_metrics, distmult_metrics, simple_metrics, transe_metrics)

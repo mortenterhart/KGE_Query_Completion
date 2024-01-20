@@ -13,8 +13,8 @@ def main():
     wikidata5m_valid = load_wikidata5m_dataset('valid')
     wikidata5m_test = load_wikidata5m_dataset('test')
 
-    model = torch.load('embeddings/ComplEx/trained_model.pkl')
-    model_factory = TriplesFactory.from_path_binary('embeddings/ComplEx/training_triples')
+    model = torch.load('embeddings/dim_32/complex/trained_model.pkl')
+    model_factory = TriplesFactory.from_path_binary('embeddings/dim_32/complex/training_triples')
     print('Training set stats:')
     print(f'  Num Triples:   {model_factory.num_triples}')
     print(f'  Num Entities:  {model_factory.num_entities}')
@@ -32,11 +32,11 @@ def main():
     print(preds_df[preds_df['in_testing'] == True])
 
     predicate_label = wikidata5m_test['P'].iloc[10]
-    arithmetic_mean_rank = get_predicate_metric(predicate_metrics, 'arithmetic_mean_rank', predicate_label, 'ComplEx', 'tail', 'realistic')
-    hits_at_1 = get_predicate_metric(predicate_metrics, 'hits_at_1', predicate_label, 'ComplEx', 'tail', 'realistic')
-    hits_at_3 = get_predicate_metric(predicate_metrics, 'hits_at_3', predicate_label, 'ComplEx', 'tail', 'realistic')
-    hits_at_5 = get_predicate_metric(predicate_metrics, 'hits_at_5', predicate_label, 'ComplEx', 'tail', 'realistic')
-    hits_at_10 = get_predicate_metric(predicate_metrics, 'hits_at_10', predicate_label, 'ComplEx', 'tail', 'realistic')
+    arithmetic_mean_rank = get_predicate_metric(predicate_metrics, 'arithmetic_mean_rank', predicate_label, 'complex', 'tail', 'realistic')
+    hits_at_1 = get_predicate_metric(predicate_metrics, 'hits_at_1', predicate_label, 'complex', 'tail', 'realistic')
+    hits_at_3 = get_predicate_metric(predicate_metrics, 'hits_at_3', predicate_label, 'complex', 'tail', 'realistic')
+    hits_at_5 = get_predicate_metric(predicate_metrics, 'hits_at_5', predicate_label, 'complex', 'tail', 'realistic')
+    hits_at_10 = get_predicate_metric(predicate_metrics, 'hits_at_10', predicate_label, 'complex', 'tail', 'realistic')
     print(f'Arithmetic mean rank: {arithmetic_mean_rank}')
     print(f'Hits at 1:            {hits_at_1}')
     print(f'Hits at 3:            {hits_at_3}')
@@ -45,7 +45,7 @@ def main():
 
 
 def load_wikidata5m_dataset(subset_type: SubsetType):
-    return pd.read_csv(f'dataset/knowledge_graph/wikidata5m_transductive_{subset_type}.txt', sep='\t',
+    return pd.read_csv(f'dataset/wikidata5m/wikidata5m_transductive_{subset_type}.txt', sep='\t',
                        names=['S', 'P', 'O'])
 
 

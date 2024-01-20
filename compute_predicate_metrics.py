@@ -12,7 +12,7 @@ from pykeen.evaluation.rank_based_evaluator import _iter_ranks
 
 
 def main():
-    wikidata5m_test_set = pd.read_csv('dataset/knowledge_graph/wikidata5m_transductive_test.txt', sep="\t",
+    wikidata5m_test_set = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_test.txt', sep="\t",
                                       names=['S', 'P', 'O'], header=None)
     trained_models = get_trained_models()
     print(
@@ -32,7 +32,7 @@ def main():
 
     print(f'[X] Finished evaluation in {timedelta(seconds=timer() - start)}')
 
-    predicate_metrics.to_csv('metrics/predicate_metrics.csv')
+    predicate_metrics.to_csv('metrics/predicate_metrics.csv', index=False)
 
 
 def get_number_of_predicates(dataset_df):
@@ -46,10 +46,10 @@ def get_test_set_per_predicate(test_set_file):
 
 def get_trained_models():
     return {
-        'ComplEx': _load_trained_model('embeddings/ComplEx'),
-        'DistMult': _load_trained_model('embeddings/DistMult'),
-        'SimplE': _load_trained_model('embeddings/SimplE'),
-        'TransE': _load_trained_model('embeddings/TransE')
+        'complex': _load_trained_model('embeddings/dim_32/complex'),
+        'distmult': _load_trained_model('embeddings/dim_32/distmult'),
+        'simple': _load_trained_model('embeddings/dim_32/simple'),
+        'transe': _load_trained_model('embeddings/dim_32/transe')
     }
 
 

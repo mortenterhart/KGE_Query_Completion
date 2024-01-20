@@ -15,7 +15,7 @@ def main():
             'embedding_dim': 32
         }
     )
-    pipeline_result.save_to_directory('embeddings/ComplEx')
+    pipeline_result.save_to_directory('embeddings/dim_32/complex')
 
     end = timer()
     print(f'Time elapsed: {timedelta(seconds=end - start)}')

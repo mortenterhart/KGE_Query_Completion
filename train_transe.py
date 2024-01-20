@@ -15,7 +15,7 @@ def main():
             'embedding_dim': 32
         }
     )
-    pipeline_result.save_to_directory('embeddings/TransE')
+    pipeline_result.save_to_directory('embeddings/dim_32/transe')
 
     end = timer()
     print(f'Time elapsed: {timedelta(seconds=end - start)}')

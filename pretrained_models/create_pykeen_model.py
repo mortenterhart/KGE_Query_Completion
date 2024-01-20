@@ -14,7 +14,7 @@ def main():
 
     ModelClass = get_model_class(model_name)
 
-    save_dir = Path(f'../embeddings/{model_name}')
+    save_dir = Path(f'../embeddings/dim_512/{model_name}')
     triples_factory_path = save_dir / 'training_factory'
     entity_embeddings_path = save_dir / 'entity_embeddings.npy'
     relation_embeddings_path = save_dir / 'relation_embeddings.npy'

@@ -22,20 +22,20 @@ def main():
     wikidata5m_dataset = get_dataset(dataset='Wikidata5M')
 
     print(f'[X] Loading train factory for {model_name}')
-    train_factory = TriplesFactory.from_path_binary(f'../embeddings/{model_name}/training_factory')
+    train_factory = TriplesFactory.from_path_binary(f'../embeddings/dim_512/{model_name}/training_factory')
 
     print(f'[X] Loading {model_name} model')
     model = DistMult(
         triples_factory=train_factory,
         embedding_dim=512
     )
-    model.load_state_dict(torch.load(f'../embeddings/{model_name}/trained_model_state_dict.pt'))
+    model.load_state_dict(torch.load(f'../embeddings/dim_512/{model_name}/trained_model_state_dict.pt'))
 
     print(f'[X] Starting evaluation on Wikidata5M test set with {model_name}')
     predicate_metrics = evaluate_model_per_predicate(model, model_name, train_factory, wikidata5m_test, wikidata5m_dataset)
 
     print(f'[X] Finished evaluation, saving results')
-    predicate_metrics.to_csv(f'../embeddings/{model_name}/predicate_metrics.csv')
+    predicate_metrics.to_csv(f'../embeddings/dim_512/{model_name}/predicate_metrics.csv', index=False)
 
 
 def evaluate_model_per_predicate(trained_model, model_name, train_factory, wikidata5m_test_set, dataset):

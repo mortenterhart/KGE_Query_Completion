@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    complex_results = load_embedding_results('embeddings/ComplEx/results.json')
-    distmult_results = load_embedding_results('embeddings/DistMult/results.json')
-    simple_results = load_embedding_results('embeddings/SimplE/results.json')
-    transe_results = load_embedding_results('embeddings/TransE/results.json')
+    complex_results = load_embedding_results('embeddings/dim_32/complex/results.json')
+    distmult_results = load_embedding_results('embeddings/dim_32/distmult/results.json')
+    simple_results = load_embedding_results('embeddings/dim_32/simple/results.json')
+    transe_results = load_embedding_results('embeddings/dim_32/transe/results.json')
 
     losses = pd.DataFrame({
         'complex': complex_results['losses'],

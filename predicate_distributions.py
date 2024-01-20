@@ -4,7 +4,7 @@ import numpy as np
 
 
 def main():
-    df = pd.read_csv('dataset/knowledge_graph/wikidata5m_transductive_train.txt', sep='\t', names=['S', 'P', 'O'])
+    df = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_train.txt', sep='\t', names=['S', 'P', 'O'])
     get_predicate_frequencies(df)
     get_object_frequencies_per_predicate(df)
     get_subject_frequencies_per_predicate(df)

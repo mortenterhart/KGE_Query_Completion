@@ -15,13 +15,13 @@ def main():
     torch.cuda.empty_cache()
 
     print(f'[X] Loading {model_name} model')
-    train_factory = TriplesFactory.from_path_binary(f'embeddings/{model_name}/training_factory')
+    train_factory = TriplesFactory.from_path_binary(f'embeddings/dim_512/{model_name}/training_factory')
 
     model = TransE(
         triples_factory=train_factory,
         embedding_dim=512
     )
-    model.load_state_dict(torch.load(f'embeddings/{model_name}/trained_model_state_dict.pt'))
+    model.load_state_dict(torch.load(f'embeddings/dim_512/{model_name}/trained_model_state_dict.pt'))
     model.to(device).eval()
 
     print(f'[X] Loading Wikidata5M datasets')
@@ -39,7 +39,7 @@ def main():
     scores_df = pack.process(factory=train_factory).df
 
     print(f'[X] Saving predicted scores')
-    scores_df.to_csv(f'embeddings/{model_name}/predicted_scores.csv')
+    scores_df.to_csv(f'embeddings/dim_512/{model_name}/predicted_scores.csv', index=False)
 
 
 if __name__ == '__main__':
