@@ -22,7 +22,7 @@ def main():
         embedding_dim=512
     )
     model.load_state_dict(torch.load(f'embeddings/dim_512/{model_name}/trained_model_state_dict.pt'))
-    model.to(device).eval()
+    model.to(device).eval()    # Move model to GPU (comment out when model too big for GPU memory)
 
     print(f'[X] Loading Wikidata5M datasets')
     wikidata5m_train = pd.read_csv('dataset/wikidata5m/wikidata5m_transductive_train.txt', sep='\t', names=['S', 'P', 'O'])
@@ -35,7 +35,7 @@ def main():
     mapped_triples = train_factory.map_triples(wikidata5m_all)
     mapped_triples.to(device)
 
-    pack = predict_triples(model=model, triples=mapped_triples)
+    pack = predict_triples(model=model, triples=mapped_triples, batch_size=512)
     scores_df = pack.process(factory=train_factory).df
 
     print(f'[X] Saving predicted scores')
