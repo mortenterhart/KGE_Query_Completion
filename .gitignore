@@ -166,11 +166,17 @@ cython_debug/
 # Wikidata5M dataset
 dataset/aliases
 dataset/documents
-dataset/knowledge_graph
+dataset/wikidata5m
 
 # Trained embeddings and mappings
-embeddings/
 pretrained_embeddings/
+embeddings/dim_32/*/trained_model.pkl
+embeddings/dim_32/*/training_triples
+embeddings/dim_512/*/trained_model_state_dict.pt
+embeddings/dim_512/*/training_factory
+embeddings/dim_512/*/predicted_scores.csv
+embeddings/dim_512/*/entity_embeddings.npy
+embeddings/dim_512/*/relation_embeddings.npy
 
 # JetBrains files
 .idea/
