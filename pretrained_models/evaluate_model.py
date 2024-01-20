@@ -48,11 +48,11 @@ def evaluate_model_per_predicate(trained_model, model_name, train_factory, wikid
     evaluator = RankBasedEvaluator(clear_on_finalize=False)
     evaluator.evaluate(
         model=trained_model,
-        mapped_triples=test_factory.mapped_triples.to(device),
-        batch_size=4096,
+        mapped_triples=test_factory.mapped_triples,
+        batch_size=4,
         additional_filter_triples=[
-            dataset.training.mapped_triples.to(device),
-            dataset.validation.mapped_triples.to(device)
+            dataset.training.mapped_triples,
+            dataset.validation.mapped_triples
         ]
     )
 
@@ -62,6 +62,8 @@ def evaluate_model_per_predicate(trained_model, model_name, train_factory, wikid
         **{"-".join(("num_candidates", key)): np.concatenate(value) for key, value in
            evaluator.num_candidates.items()},
     )
+
+    print('[X] Aggregating all metrics in a dataframe')
 
     aggregated_metrics = pd.DataFrame()
 
