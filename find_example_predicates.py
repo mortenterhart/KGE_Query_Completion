@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import requests
+from matplotlib import pyplot as plt
 
 
 def main():
@@ -13,10 +15,14 @@ def main():
 
     predicate_metrics = filter_metrics(predicate_metrics, selected_metrics)
 
-    print(predicate_metrics.info())
+    variances_df = find_largest_metric_variances(predicate_metrics).head(5)
 
-    print(find_largest_metric_variances(predicate_metrics).head())
-    print(find_largest_metric_variances_easy(predicate_metrics).head())
+    print('Selected predicates and variances:')
+    print(variances_df)
+
+    example_predicates = predicate_metrics[predicate_metrics['relation_label'].isin(variances_df['relation_label'])]
+
+    plot_selected_predicate_metrics(example_predicates)
 
 
 def filter_metrics(predicate_metrics, selected_metrics):
@@ -66,6 +72,60 @@ def find_largest_metric_variances_easy(predicate_metrics):
     variances_df = pd.DataFrame(metric_variances, columns=['relation_label', 'variance'])
 
     return variances_df.sort_values(by='variance', ascending=False, ignore_index=True)
+
+
+def plot_selected_predicate_metrics(predicate_metrics):
+    example_predicates = predicate_metrics['relation_label'].unique()
+    wikidata_labels = get_wikidata_property_names(example_predicates)
+
+    for pred, w_label in zip(example_predicates, wikidata_labels):
+        pred_df = predicate_metrics[predicate_metrics['relation_label'] == pred]
+
+        # Sort by model name to ensure correct ordering
+        pred_df = pred_df.sort_values(by='model')
+
+        # Filter values for each metric
+        amr_values = pred_df[pred_df['Metric'] == 'arithmetic_mean_rank']
+        hits5_values = pred_df[pred_df['Metric'] == 'hits_at_5']
+        hits10_values = pred_df[pred_df['Metric'] == 'hits_at_10']
+
+        # Create subplots
+        fig, axs = plt.subplots(2, 2, figsize=(15, 10))
+        fig.suptitle(f'Metrics for predicate: {pred} (Wikidata: {w_label})')
+
+        axs[0, 0].bar(amr_values['model'], amr_values['Value'], color=['blue', 'green', 'orange', 'red'])
+        axs[0, 0].set_title('Arithmetic Mean Rank')
+
+        axs[0, 1].bar(hits5_values['model'], hits5_values['Value'], color=['blue', 'green', 'orange', 'red'])
+        axs[0, 1].set_title('Hits at 5')
+
+        axs[1, 0].bar(hits10_values['model'], hits10_values['Value'], color=['blue', 'green', 'orange', 'red'])
+        axs[1, 0].set_title('Hits at 10')
+
+        # Adjust layout to prevent clipping of titles
+        plt.tight_layout()
+
+        # Show the plot
+        plt.show()
+
+
+def get_wikidata_property_names(property_ids: list):
+    wikidata_api = 'https://www.wikidata.org/w/api.php'
+    params = {
+        'action': 'wbgetentities',
+        'ids': '|'.join(property_ids),
+        'languages': 'en',
+        'props': 'labels',
+        'format': 'json'
+    }
+
+    response = requests.get(wikidata_api, params).json()
+
+    property_names = []
+    for pid in property_ids:
+        property_names.append(response['entities'][pid]['labels']['en']['value'])
+
+    return property_names
 
 
 if __name__ == '__main__':

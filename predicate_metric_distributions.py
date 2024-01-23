@@ -7,7 +7,12 @@ from matplotlib import pyplot as plt
 def main():
     predicate_metrics = pd.read_csv('metrics/predicate_metrics.csv')
 
-    metric_names = np.sort(predicate_metrics['Metric'].unique())
+    distmult_512_metrics = pd.read_csv('embeddings/dim_512/distmult/predicate_metrics.csv')
+    simple_512_metrics = pd.read_csv('embeddings/dim_512/simple/predicate_metrics.csv')
+    transe_512_metrics = pd.read_csv('embeddings/dim_512/transe/predicate_metrics.csv')
+
+    # metric_names = np.sort(predicate_metrics['Metric'].unique())
+    metric_names = ['arithmetic_mean_rank', 'hits_at_5', 'hits_at_10']
 
     print(f'[X] Plotting {len(metric_names)} different metric distributions')
 
@@ -79,7 +84,7 @@ def plot_joint_metric_distributions(metric_name,
     sns.histplot(data=df_all, bins=20, kde=True, multiple="stack", palette="muted")
 
     # Add titles and labels
-    plt.title(f'{metric_name}')
+    plt.title(f'{metric_name} for 32-dim embeddings')
     plt.xlabel('Metric Values')
     plt.ylabel('Frequency')
 
