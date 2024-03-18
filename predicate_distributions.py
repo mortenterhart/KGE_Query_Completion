@@ -11,7 +11,7 @@ def main():
 
 
 def get_predicate_frequencies(df):
-    p_frequencies = df['P'].value_counts(sort=False)
+    p_frequencies = df['P'].value_counts(sort=True)
     print(f'Predicate frequencies length: {p_frequencies.size}')
     plt.bar(np.arange(p_frequencies.size), p_frequencies)
     plt.show()

@@ -1,0 +1,23 @@
+P,wd_label,pred_count,total_subject_count,total_object_count
+P102,member of political party,126485,115830,4053
+P1029,crew member(s),1766,433,594
+P106,occupation,1100875,809940,2791
+P108,employer,80134,60115,9756
+P118,league,21529,20687,1219
+P1344,participant in,222604,124179,7227
+P136,genre,370062,301933,3286
+P166,award received,182364,107457,7110
+P19,place of birth,855974,853640,89004
+P26,spouse,46535,42136,42122
+P27,country of citizenship,1146263,1106156,1283
+P31,instance of,3839805,3742149,18612
+P3373,sibling,75615,34083,34517
+P364,original language of film or TV show,136520,131520,361
+P413,position played on team / speciality,180987,177948,126
+P421,located in time zone,404751,270094,103
+P437,distribution format,10028,9373,168
+P460,said to be the same as,11722,4391,4430
+P47,shares border with,429768,91822,92189
+P516,powered by,3443,3262,376
+P641,sport,485665,481076,453
+P69,educated at,439703,320070,16764
