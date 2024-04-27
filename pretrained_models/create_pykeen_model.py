@@ -24,8 +24,8 @@ def main():
     train_factory = TriplesFactory.from_path_binary(triples_factory_path)
 
     print(f'[X] Loading entity and relation embeddings from {entity_embeddings_path} and {relation_embeddings_path}')
-    entity_embeddings = torch.from_numpy(np.load(entity_embeddings_path))
-    relation_embeddings = torch.from_numpy(np.load(relation_embeddings_path))
+    entity_embeddings = torch.from_numpy(np.load(entity_embeddings_path)).type(torch.complex64)
+    relation_embeddings = torch.from_numpy(np.load(relation_embeddings_path)).type(torch.complex64)
 
     print(f'[X] Creating PyKEEN model from trained {model_name} embeddings')
     model = ModelClass(
