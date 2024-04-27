@@ -31,8 +31,8 @@ def main():
     model = ModelClass(
         triples_factory=train_factory,
         embedding_dim=512,
-        entity_initializer=PretrainedInitializer(tensor=entity_embeddings),
-        relation_initializer=PretrainedInitializer(tensor=relation_embeddings)
+        entity_initializer=PretrainedInitializer(tensor=torch.view_as_real(entity_embeddings)),
+        relation_initializer=PretrainedInitializer(tensor=torch.view_as_real(relation_embeddings))
     )
 
     print(f'[X] Saving PyKEEN model to {trained_model_path}')
